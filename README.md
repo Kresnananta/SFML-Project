@@ -1,9 +1,8 @@
-# SFML Project
+# SFML Project - GALAXIUM
 
 ## Overview
-This project is a simple game built using the SFML (Simple and Fast Multimedia Library) framework. It demonstrates the basic structure of a multi-file C++ application, including the use of classes to manage game state and input.
-
-## Project Structure
+GALAXIUM is a spaceship shooting game.
+<!-- ## Project Structure
 ```
 sfml-project
 ├── src
@@ -14,7 +13,7 @@ sfml-project
 │   └── pesawat1.png    # Image asset for the game
 ├── CMakeLists.txt      # Build configuration file for CMake
 └── README.md           # Project documentation
-```
+``` -->
 
 ## Building the Project
 To build the project, you need to have CMake and SFML installed on your system. Follow these steps:
@@ -48,7 +47,7 @@ After building the project, you can run the application from the build directory
 - **D**: Move right
 
 ## Dependencies
-- SFML (version X.X.X or later)
+- SFML (version 3.0.0 or later)
 
-## License
-This project is licensed under the MIT License. See the LICENSE file for more details.
+<!-- ## License
+This project is licensed under the MIT License. See the LICENSE file for more details. -->
