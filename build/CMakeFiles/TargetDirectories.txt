@@ -1,0 +1,3 @@
+/mnt/d/Dev/SFML Project/build/CMakeFiles/sfml-project.dir
+/mnt/d/Dev/SFML Project/build/CMakeFiles/edit_cache.dir
+/mnt/d/Dev/SFML Project/build/CMakeFiles/rebuild_cache.dir
