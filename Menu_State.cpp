@@ -1,82 +1,150 @@
 #include "Menu_State.h"
+
 #include <cmath>
+#include <iostream>
 
 MainMenu::MainMenu() {
     font.loadFromFile("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf");
+
+    bgMenuTexture.loadFromFile("../img/Background.png");
+    bgMenuSprite.setTexture(bgMenuTexture);
+
+    float scaleY = 600.0f / bgMenuTexture.getSize().y;
+    bgMenuSprite.setScale(scaleY, scaleY);
+    float bgWidth = bgMenuTexture.getSize().x * scaleY;
+    float offsetX = (800.0 - bgWidth) / 2.0f;
+    bgMenuSprite.setPosition(offsetX, 0);
+
+    if(!startButtonTexture.loadFromFile("../img/Start_BTN.png")){
+        std::cout << "Gagal load start_button\n";
+    }
+    if(!exitButtonTexture.loadFromFile("../img/Exit_BTN.png")){
+        std::cout << "Gagal load exit_button\n";
+    }
+    if(!leadButtonTexture.loadFromFile("../img/Rating_BTN.png")){
+        std::cout << "Gagal load leaderboard_button\n";
+    }
+    if(!leadPlatTexture.loadFromFile("../img/Platform.png")){
+        std::cout << "Gagal load Platform\n";
+    }
+    if(!backButtonTexture.loadFromFile("../img/Back_BTN.png")){
+    std::cout << "Gagal load back_button\n";
+}
+
     titleText.setFont(font);
     titleText.setString("GALAXIUM");
     titleText.setCharacterSize(48);
     titleText.setFillColor(sf::Color::White);
     titleText.setPosition(268, 119);
+    
+    startButtonSprite.setTexture(startButtonTexture);
+    startButtonSprite.setPosition(300, 240);
+    startButtonSprite.setScale(0.5f, 0.5f);
 
-    startButton.setSize(sf::Vector2f(200, 60));
-    startButton.setFillColor(sf::Color(200, 200, 200, 220));
-    startButton.setPosition(300, 240);
+    exitButtonSprite.setTexture(exitButtonTexture);
+    exitButtonSprite.setPosition(300, 330);
+    exitButtonSprite.setScale(0.5f, 0.5f);
 
-    startText.setFont(font);
-    startText.setString("Start");
-    startText.setCharacterSize(30);
-    startText.setFillColor(sf::Color::Black);
+    leadButtonSprite.setTexture(leadButtonTexture);
+    leadButtonSprite.setPosition(710, 520);
+    leadButtonSprite.setScale(0.3f, 0.3f);
 
-    sf::FloatRect startButtonBounds = startButton.getGlobalBounds();
-    sf::FloatRect startTextBounds = startText.getLocalBounds();
-    startText.setOrigin(startTextBounds.left + startTextBounds.width / 2.0f,
-                        startTextBounds.top + startTextBounds.height / 2.0f);
-    startText.setPosition(
-        startButtonBounds.left + startButtonBounds.width / 2.0f,
-        startButtonBounds.top + startButtonBounds.height / 2.0f
-    );
+    backButtonSprite.setTexture(backButtonTexture);
+    backButtonSprite.setPosition(40, 520);
+    backButtonSprite.setScale(0.3f, 0.3f);
 
-    leadButton.setSize(sf::Vector2f(200, 60));
-    leadButton.setFillColor(sf::Color(200, 200, 200, 220));
-    leadButton.setPosition(300, 330);
+    leaderboardOverlay.setSize(sf::Vector2f(720, 510));
+    leaderboardOverlay.setPosition(40, 45);
+    leaderboardOverlay.setFillColor(sf::Color(0, 0, 0, 150));
+}
 
-    leadText.setFont(font);
-    leadText.setString("Leaderboard");
-    leadText.setCharacterSize(30);
-    leadText.setFillColor(sf::Color::Black);
+void MainMenu::processEvent(const sf::Event& event) {
+    if (showingLeaderboard && event.type == sf::Event::MouseButtonPressed) {
+        sf::Vector2f mousePos(event.mouseButton.x, event.mouseButton.y);
+        if (!leadPlatSprite.getGlobalBounds().contains(mousePos)) {
+            showingLeaderboard = false;
+        }
+    }
+    // tambahin kalo ada yg lain
+}
 
-    sf::FloatRect leadButtonBounds = leadButton.getGlobalBounds();
-    sf::FloatRect leadTextBounds = leadText.getLocalBounds();
-    leadText.setOrigin(leadTextBounds.left + leadTextBounds.width / 2.0f,
-                        leadTextBounds.top + leadTextBounds.height / 2.0f);
-    leadText.setPosition(
-        leadButtonBounds.left + leadButtonBounds.width / 2.0f,
-        leadButtonBounds.top + leadButtonBounds.height / 2.0f
-    );
+void MainMenu::drawLeaderboard(sf::RenderWindow& window, const std::vector<LeaderboardEntry>& entries, sf::Font& font) {
+    window.draw(bgMenuSprite);
+    window.draw(leaderboardOverlay);
 
-    exitButton.setRadius(30.0f);
-    exitButton.setFillColor(sf::Color(200, 50, 50, 220));
-    exitButton.setPosition(20, 522);
-    exitText.setFont(font);
-    exitText.setString("X");
-    exitText.setCharacterSize(32);
-    exitText.setFillColor(sf::Color::White);
+    // Header
+    float baseX = 100.0f;
+    float startY = 120.0f;
+    float colRank = baseX;
+    float colName = baseX + 120;
+    float colScore = baseX + 300;
+    float colTime = baseX + 430;
 
-    sf::FloatRect txtBounds = exitText.getLocalBounds();
-    exitText.setOrigin(txtBounds.left + txtBounds.width / 2.0f, txtBounds.top + txtBounds.height / 2.0f);
-    exitText.setPosition(
-        exitButton.getPosition().x + exitButton.getRadius(),
-        exitButton.getPosition().y + exitButton.getRadius()
-    );
+    sf::Text headerRank("RANK", font, 24);
+    headerRank.setFillColor(sf::Color::Yellow);
+    headerRank.setPosition(colRank, startY - 40);
+    window.draw(headerRank);
+
+    sf::Text headerName("NAME", font, 24);
+    headerName.setFillColor(sf::Color::Yellow);
+    headerName.setPosition(colName, startY - 40);
+    window.draw(headerName);
+
+    sf::Text headerScore("SCORE", font, 24);
+    headerScore.setFillColor(sf::Color::Yellow);
+    headerScore.setPosition(colScore, startY - 40);
+    window.draw(headerScore);
+
+    sf::Text headerTime("TIME", font, 24);
+    headerTime.setFillColor(sf::Color::Yellow);
+    headerTime.setPosition(colTime, startY - 40);
+    window.draw(headerTime);
+
+    // Entries
+    int rank = 1;
+    for (const auto& entry : entries) {
+        if (rank > 10) break;
+
+        sf::Text textRank(std::to_string(rank), font, 22);
+        textRank.setFillColor(sf::Color::White);
+        textRank.setPosition(colRank, startY + (rank-1)*32);
+        window.draw(textRank);
+
+        sf::Text textName(entry.name, font, 22);
+        textName.setFillColor(sf::Color::White);
+        textName.setPosition(colName, startY + (rank-1)*32);
+        window.draw(textName);
+
+        sf::Text textScore(std::to_string(entry.score), font, 22);
+        textScore.setFillColor(sf::Color::White);
+        textScore.setPosition(colScore, startY + (rank-1)*32);
+        window.draw(textScore);
+
+        sf::Text textTime(std::to_string(entry.elapsed) + "s", font, 22);
+        textTime.setFillColor(sf::Color::White);
+        textTime.setPosition(colTime, startY + (rank-1)*32);
+        window.draw(textTime);
+
+        ++rank;
+    }
+
+    // button
+    window.draw(backButtonSprite);
 }
 
 void MainMenu::draw(sf::RenderWindow& window) {
     window.clear();
+    window.draw(bgMenuSprite);
     window.draw(titleText);
-    window.draw(startButton);
-    window.draw(startText);
-    window.draw(leadButton);
-    window.draw(leadText);
-    window.draw(exitButton);
-    window.draw(exitText);
-    window.display();
+    window.draw(startButtonSprite);
+    window.draw(exitButtonSprite);
+    window.draw(leadButtonSprite);
 }
 
 bool MainMenu::isStartClicked(sf::RenderWindow& window, sf::Event& event) {
     if(event.type == sf::Event::MouseButtonPressed) {
         sf::Vector2f mousePos(event.mouseButton.x, event.mouseButton.y);
-        if(startButton.getGlobalBounds().contains(mousePos)) {
+        if(startButtonSprite.getGlobalBounds().contains(mousePos)) {
             return true;
         }
     }
@@ -84,13 +152,30 @@ bool MainMenu::isStartClicked(sf::RenderWindow& window, sf::Event& event) {
 }
 
 bool MainMenu::isExitClicked(sf::RenderWindow& window, sf::Event& event) {
-    if (event.type == sf::Event::MouseButtonPressed) {
+    if(event.type == sf::Event::MouseButtonPressed) {
         sf::Vector2f mousePos(event.mouseButton.x, event.mouseButton.y);
-        sf::Vector2f center = exitButton.getPosition() + sf::Vector2f(exitButton.getRadius(), exitButton.getRadius());
-        float dx = mousePos.x - center.x;
-        float dy = mousePos.y - center.y;
-        float dist = std::sqrt(dx * dx + dy * dy);
-        if (dist <= exitButton.getRadius()) {
+        if(exitButtonSprite.getGlobalBounds().contains(mousePos)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool MainMenu::isLeadClicked(sf::RenderWindow& window, sf::Event& event) {
+    if(event.type == sf::Event::MouseButtonPressed) {
+        sf::Vector2f mousePos(event.mouseButton.x, event.mouseButton.y);
+        if(leadButtonSprite.getGlobalBounds().contains(mousePos)) {
+            //std::cout << "LEADERBOARD BUTTON CLICKED\n";
+            return true;
+        }
+    }
+    return false;
+}
+
+bool MainMenu::isBackClicked(sf::RenderWindow& window, sf::Event& event) {
+    if(event.type == sf::Event::MouseButtonPressed) {
+        sf::Vector2f mousePos(event.mouseButton.x, event.mouseButton.y);
+        if(backButtonSprite.getGlobalBounds().contains(mousePos)) {
             return true;
         }
     }

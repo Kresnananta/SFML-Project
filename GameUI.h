@@ -13,6 +13,7 @@ public:
     void draw(sf::RenderWindow& window);
     bool isTryAgainClicked(sf::RenderWindow& window, sf::Event& event);
     bool isReturnMenuClicked(sf::RenderWindow& window, sf::Event& event);
+    void setElapsedTime(float seconds);
 
     const sf::Font& getFont() const { return font; };
 
@@ -27,6 +28,13 @@ private:
     sf::Text tryAgainText;
     sf::RectangleShape returnMenuButton;
     sf::Text returnMenuText;
+
+    sf::Text elapsedTimeText;
+
+    sf::Texture returnMenuTexture;
+    sf::Sprite returnMenuSprite;
+    sf::Texture tryAgainTexture;
+    sf::Sprite tryAgainSprite;
 
     int lives = 3;
     int score = 0;

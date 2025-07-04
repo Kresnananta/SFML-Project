@@ -16,6 +16,7 @@ set(SOURCES
     SplashScreen.cpp
     Menu_State.cpp
     Camera.cpp
+    Leaderboard.cpp
 )
 
 add_executable(sfml-project ${SOURCES})

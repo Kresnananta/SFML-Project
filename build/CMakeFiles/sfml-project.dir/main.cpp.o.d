@@ -263,4 +263,5 @@ CMakeFiles/sfml-project.dir/main.cpp.o: /mnt/d/Dev/SFML\ Project/main.cpp \
  /usr/include/c++/13/bits/stl_numeric.h \
  /mnt/d/Dev/SFML\ Project/Asteroid.h /mnt/d/Dev/SFML\ Project/GameUI.h \
  /mnt/d/Dev/SFML\ Project/SplashScreen.h \
- /mnt/d/Dev/SFML\ Project/Menu_State.h /mnt/d/Dev/SFML\ Project/Camera.h
+ /mnt/d/Dev/SFML\ Project/Menu_State.h \
+ /mnt/d/Dev/SFML\ Project/Leaderboard.h /mnt/d/Dev/SFML\ Project/Camera.h

@@ -5,6 +5,12 @@ GameUI::GameUI(){
     if (!font.loadFromFile("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf")) {
         std::cout << "Error loading font" << std::endl;
     }
+    if (!tryAgainTexture.loadFromFile("../img/Replay_BTN.png")) {
+        std::cout << "Error loading Try Again button texture" << std::endl;
+    }
+    if (!returnMenuTexture.loadFromFile("../img/Menu_BTN.png")) {
+        std::cout << "Error loading Return Menu button texture" << std::endl;
+    }
 
     livesText.setFont(font);
     livesText.setCharacterSize(24);
@@ -20,7 +26,12 @@ GameUI::GameUI(){
     gameOverText.setCharacterSize(48);
     gameOverText.setFillColor(sf::Color::Red);
     gameOverText.setString("Game Over");
-    gameOverText.setPosition(255, 250);
+    gameOverText.setPosition(255, 200);
+
+    elapsedTimeText.setFont(font);
+    elapsedTimeText.setCharacterSize(24);
+    elapsedTimeText.setFillColor(sf::Color::White);
+    elapsedTimeText.setPosition(650, 10); // pojok kanan atas
 
     overlay.setSize(sf::Vector2f(800, 600));
     overlay.setFillColor(sf::Color(0, 0, 0, 150)); // semi-transparent black
@@ -30,40 +41,30 @@ GameUI::GameUI(){
     overlay.setFillColor(sf::Color(0, 0, 0, 150));
 
     // Tombol Try Again
-    tryAgainButton.setSize(sf::Vector2f(200, 60));
-    tryAgainButton.setFillColor(sf::Color(200, 200, 200, 220));
-    tryAgainButton.setPosition(415, 350);
+    tryAgainSprite.setTexture(tryAgainTexture);
+    tryAgainSprite.setPosition(510, 350);
+    tryAgainSprite.setScale(0.5f, 0.5f);
+
 
     tryAgainText.setFont(font);
     tryAgainText.setString("Try Again");
-    tryAgainText.setCharacterSize(32);
-    tryAgainText.setFillColor(sf::Color::Black);
-    // tryAgainText.setPosition(340, 360);
-    sf::FloatRect buttonBounds = tryAgainButton.getGlobalBounds();
-    sf::FloatRect textBounds = tryAgainText.getLocalBounds();
-    tryAgainText.setOrigin(textBounds.left + textBounds.width / 2.0f,
-                        textBounds.top + textBounds.height / 2.0f);
-    tryAgainText.setPosition(
-        buttonBounds.left + buttonBounds.width / 2.0f,
-        buttonBounds.top + buttonBounds.height / 2.0f
-    );
+    tryAgainText.setCharacterSize(24);
+    tryAgainText.setFillColor(sf::Color::White);
+    tryAgainText.setPosition(495, 470);
+    
 
-    returnMenuButton.setSize(sf::Vector2f(200, 60));
-    returnMenuButton.setFillColor(sf::Color(200, 200, 200, 220));
-    returnMenuButton.setPosition(185, 350); // 80px from left, same y as Try Again
+    // Tombol Return to Menu
+    returnMenuSprite.setTexture(returnMenuTexture);
+    returnMenuSprite.setPosition(185, 350);
+    returnMenuSprite.setScale(0.5f, 0.5f);
+
 
     returnMenuText.setFont(font);
     returnMenuText.setString("Menu");
-    returnMenuText.setCharacterSize(32);
-    returnMenuText.setFillColor(sf::Color::Black);
+    returnMenuText.setCharacterSize(24);
+    returnMenuText.setFillColor(sf::Color::White);
+    returnMenuText.setPosition(200, 470);
 
-    sf::FloatRect btnBounds = returnMenuButton.getGlobalBounds();
-    sf::FloatRect txtBounds = returnMenuText.getLocalBounds();
-    returnMenuText.setOrigin(txtBounds.left + txtBounds.width / 2.0f, txtBounds.top + txtBounds.height / 2.0f);
-    returnMenuText.setPosition(
-        btnBounds.left + btnBounds.width / 2.0f,
-        btnBounds.top + btnBounds.height / 2.0f
-    );
 }
 
 
@@ -78,6 +79,12 @@ void GameUI::setScore(int score) {
     scoreText.setString("Score: " + std::to_string(score));
 }
 
+void GameUI::setElapsedTime(float seconds) {
+    int mins = static_cast<int>(seconds) / 60;
+    int secs = static_cast<int>(seconds) % 60;
+    elapsedTimeText.setString("Time: " + std::to_string(mins) + ":" + (secs < 10 ? "0" : "") + std::to_string(secs));
+}
+
 void GameUI::setGameOver(bool gameOver){
     this->gameOver = gameOver;
 }
@@ -85,12 +92,13 @@ void GameUI::setGameOver(bool gameOver){
 void GameUI::draw(sf::RenderWindow& window) {
     window.draw(livesText);
     window.draw(scoreText);
+    window.draw(elapsedTimeText);
     if (gameOver) {
         window.draw(overlay);
         window.draw(gameOverText);
-        window.draw(tryAgainButton);
+        window.draw(tryAgainSprite);
+        window.draw(returnMenuSprite);
         window.draw(tryAgainText);
-        window.draw(returnMenuButton);
         window.draw(returnMenuText);
     }
 }
@@ -99,7 +107,7 @@ bool GameUI::isTryAgainClicked(sf::RenderWindow& window, sf::Event& event) {
     if (!gameOver) return false;
     if (event.type == sf::Event::MouseButtonPressed) {
         sf::Vector2f mousePos(event.mouseButton.x, event.mouseButton.y);
-        if (tryAgainButton.getGlobalBounds().contains(mousePos)) {
+        if (tryAgainSprite.getGlobalBounds().contains(mousePos)) {
             return true;
         }
     }
@@ -110,7 +118,7 @@ bool GameUI::isReturnMenuClicked(sf::RenderWindow& window, sf::Event& event) {
     if (!gameOver) return false;
     if (event.type == sf::Event::MouseButtonPressed) {
         sf::Vector2f mousePos(event.mouseButton.x, event.mouseButton.y);
-        if (returnMenuButton.getGlobalBounds().contains(mousePos)) {
+        if (returnMenuSprite.getGlobalBounds().contains(mousePos)) {
             return true;
         }
     }

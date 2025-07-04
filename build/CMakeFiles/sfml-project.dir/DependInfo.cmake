@@ -12,6 +12,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/mnt/d/Dev/SFML Project/Camera.cpp" "CMakeFiles/sfml-project.dir/Camera.cpp.o" "gcc" "CMakeFiles/sfml-project.dir/Camera.cpp.o.d"
   "/mnt/d/Dev/SFML Project/Game.cpp" "CMakeFiles/sfml-project.dir/Game.cpp.o" "gcc" "CMakeFiles/sfml-project.dir/Game.cpp.o.d"
   "/mnt/d/Dev/SFML Project/GameUI.cpp" "CMakeFiles/sfml-project.dir/GameUI.cpp.o" "gcc" "CMakeFiles/sfml-project.dir/GameUI.cpp.o.d"
+  "/mnt/d/Dev/SFML Project/Leaderboard.cpp" "CMakeFiles/sfml-project.dir/Leaderboard.cpp.o" "gcc" "CMakeFiles/sfml-project.dir/Leaderboard.cpp.o.d"
   "/mnt/d/Dev/SFML Project/Menu_State.cpp" "CMakeFiles/sfml-project.dir/Menu_State.cpp.o" "gcc" "CMakeFiles/sfml-project.dir/Menu_State.cpp.o.d"
   "/mnt/d/Dev/SFML Project/SplashScreen.cpp" "CMakeFiles/sfml-project.dir/SplashScreen.cpp.o" "gcc" "CMakeFiles/sfml-project.dir/SplashScreen.cpp.o.d"
   "/mnt/d/Dev/SFML Project/main.cpp" "CMakeFiles/sfml-project.dir/main.cpp.o" "gcc" "CMakeFiles/sfml-project.dir/main.cpp.o.d"

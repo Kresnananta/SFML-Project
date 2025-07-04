@@ -225,6 +225,30 @@ GameUI.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sfml-project.dir/build.make CMakeFiles/sfml-project.dir/GameUI.cpp.s
 .PHONY : GameUI.cpp.s
 
+Leaderboard.o: Leaderboard.cpp.o
+.PHONY : Leaderboard.o
+
+# target to build an object file
+Leaderboard.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sfml-project.dir/build.make CMakeFiles/sfml-project.dir/Leaderboard.cpp.o
+.PHONY : Leaderboard.cpp.o
+
+Leaderboard.i: Leaderboard.cpp.i
+.PHONY : Leaderboard.i
+
+# target to preprocess a source file
+Leaderboard.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sfml-project.dir/build.make CMakeFiles/sfml-project.dir/Leaderboard.cpp.i
+.PHONY : Leaderboard.cpp.i
+
+Leaderboard.s: Leaderboard.cpp.s
+.PHONY : Leaderboard.s
+
+# target to generate assembly for a file
+Leaderboard.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sfml-project.dir/build.make CMakeFiles/sfml-project.dir/Leaderboard.cpp.s
+.PHONY : Leaderboard.cpp.s
+
 Menu_State.o: Menu_State.cpp.o
 .PHONY : Menu_State.o
 
@@ -318,6 +342,9 @@ help:
 	@echo "... GameUI.o"
 	@echo "... GameUI.i"
 	@echo "... GameUI.s"
+	@echo "... Leaderboard.o"
+	@echo "... Leaderboard.i"
+	@echo "... Leaderboard.s"
 	@echo "... Menu_State.o"
 	@echo "... Menu_State.i"
 	@echo "... Menu_State.s"

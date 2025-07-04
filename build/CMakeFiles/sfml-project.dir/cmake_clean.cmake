@@ -7,6 +7,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/sfml-project.dir/Game.cpp.o.d"
   "CMakeFiles/sfml-project.dir/GameUI.cpp.o"
   "CMakeFiles/sfml-project.dir/GameUI.cpp.o.d"
+  "CMakeFiles/sfml-project.dir/Leaderboard.cpp.o"
+  "CMakeFiles/sfml-project.dir/Leaderboard.cpp.o.d"
   "CMakeFiles/sfml-project.dir/Menu_State.cpp.o"
   "CMakeFiles/sfml-project.dir/Menu_State.cpp.o.d"
   "CMakeFiles/sfml-project.dir/SplashScreen.cpp.o"
